@@ -26,18 +26,21 @@ module.exports = function SettingsBill() {
 
     function recordAction(action) {
         let cost = 0;
-            if (action === 'sms' && cost < criticalLevel){
+            if (action === 'sms'){
             cost = smsCost;
             }
-            else if (action === 'call' && cost < criticalLevel){
+            else if (action === 'call'){
                 cost = callCost;
             }
-            actionList.push({
-                type: action,
-                cost,
-                date: new Date(),
-                timestamp: new Date()
-            });
+            if (cost != 0 && !hasReachedCriticalLevel()) {
+                actionList.push({
+                    type: action,
+                    cost,
+                    date: new Date(),
+                    timestamp: new Date()
+                });
+            }
+            
     }
 
     function actions(){
